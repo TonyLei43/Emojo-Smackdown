@@ -17,13 +17,6 @@ body {
     margin: 24px 0 32px; /* Corrected spacing */
 }
 
-.game-container {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-evenly; /* Space items evenly */
-    flex-wrap: nowrap; /* Prevent wrapping */
-    margin: auto;
-    max-width: 620px;
-}
 
 .player-headline {
     display: flex;
@@ -42,46 +35,16 @@ body {
     width: 300px; /* Fixed width */
     height: 400px; /* Fixed height */
     border-radius: 10px; /* Rounded corners */
+    overflow:hidden
 }
 
-.messages {
-    background-color: #333;
-    border: 1px solid #ccc;
-    margin: 6px;
-    padding: 12px;
-    width: calc(100% - 24px); /* Adjusted for padding */
-}
-
-/* Additional styles for player video and robot */
-.player-container .player-video, .robot-container .avatar {
-    display: block;
-    width: 100%;
-    height: auto; /* Maintain aspect ratio */
-}
-
-/* Rest of your CSS... */
-
-.game-container {
-    display: flex; /* Continue using flexbox for layout */
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Align children in the center */
-    margin: auto;
-    max-width: 620px;
-}
-
-.player {
-    background-color: #999;
-    margin: 6px;
-    width: 300px; /* Fixed width */
-    height: 400px; /* Fixed height */
-    border-radius: 10px; /* Rounded corners */
-}
 
 .player-container, .robot-container {
     width: 100%; /* Ensure full width */
     display: flex; /* Use flexbox */
     justify-content: space-evenly; /* Space items evenly */
     flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    max-height: 400px;
 }
 
 .messages {
@@ -97,7 +60,7 @@ body {
 .player-container .player-video, .robot-container .avatar {
     display: block;
     width: 100%;
-    height: auto; /* Maintain aspect ratio */
+    max-height: 400px /* Maintain aspect ratio */
 }
 
 
