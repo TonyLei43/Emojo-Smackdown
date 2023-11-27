@@ -108,4 +108,83 @@ body {
 }
 
 
+.fade-out {
+    animation: fadeOut 3s;
+    animation-fill-mode: forwards; /* Makes sure the element remains in the final state of the animation */
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.mode-toggle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.mode-toggle:hover {
+    background-color: #45a049;
+}
+
+#capture-btn {
+    background-color: #FFD700; /* Gold color */
+    color: #000000; /* Black text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+#capture-btn:hover {
+    background-color: #FFA500; /* Darker gold/orange */
+    color: #FFFFFF; /* White text */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#capture-btn:active {
+    transform: scale(0.95); /* Slightly scale down when active/clicked */
+}
+
+
+#audio-player {
+    display: none;
+}
+
+/* or, if you want to ensure it's not visible or taking up space */
+#audio-player {
+    visibility: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+#audio-control-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#audio-control-btn:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+}
 

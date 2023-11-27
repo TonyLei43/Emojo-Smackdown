@@ -1,14 +1,20 @@
+let currentWeatherData = {};
 
 function fetchWeather() {
     fetch('/get_weather')
         .then(response => response.json())
         .then(data => {
             // Extracting the necessary data from the API response
-            var location = data.name; // Location name
-            var weatherCondition = data.weather[0].description; // Weather condition description
-            var temperature = data.main.temp; // Temperature
-            var windSpeed = data.wind.speed; // Wind speed
-
+            currentWeatherData = {
+                location: data.name,
+                condition: data.weather[0].description,
+                temperature: data.main.temp,
+                windSpeed: data.wind.speed
+            };
+            var location = currentWeatherData.location;
+            var weatherCondition = currentWeatherData.condition;
+            var temperature = currentWeatherData.temperature;
+            var windSpeed = currentWeatherData.windSpeed;
             // Update the weather block with the information
             document.getElementById('weather-block').innerHTML = `
             📍 <strong>Location:</strong> ${location}<br>
