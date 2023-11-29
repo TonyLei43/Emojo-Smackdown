@@ -2,7 +2,7 @@
     function changeCatImage() {
         // Assuming you have images named img1.jpg, img2.jpg, etc.
         const numberOfImages = 20; // Update this with the number of images you have
-        const randomIndex = Math.floor(Math.random() * numberOfImages) + 1; // Generate a random index between 1 and numberOfImages
+        const randomIndex = Math.floor(Math.random() * numberOfImages) ; // Generate a random index between 1 and numberOfImages
         const newImageUrl = `../static/cat_images/${randomIndex}.jpeg`; // Construct the new image URL
 
         const robotImage = document.getElementById('robot');

@@ -14,6 +14,7 @@ navigator.mediaDevices.getUserMedia({ video: true })
 
 
 document.getElementById('capture-btn').addEventListener('click', async function() {
+    this.disabled = true;
     const canvas = document.createElement('canvas');
     canvas.width = videoElement.videoWidth;
     canvas.height = videoElement.videoHeight;
@@ -38,7 +39,10 @@ document.getElementById('capture-btn').addEventListener('click', async function(
     messageElement.innerText = result.message; // assuming result contains a message
     setTimeout(function() {
         messageElement.innerText = '';
-    }, 6000);
+    }, 3000);
+    setTimeout(() => {
+        this.disabled = false;
+    }, 3000);
 });
 
 function updateScores(winner) {
@@ -72,19 +76,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    const captureButton = document.getElementById('capture-btn');
-
-    captureButton.addEventListener('click', function() {
-        // Change button style to indicate it's been pressed
-        this.classList.add('button-pressed');
-
-        // Revert to original style after 2 seconds
-        setTimeout(() => {
-            this.classList.remove('button-pressed');
-        }, 2000);  // 2000 milliseconds = 2 seconds
-    });
-});
 
 document.addEventListener('DOMContentLoaded', (event) => {
     const audio = document.getElementById('background-music');

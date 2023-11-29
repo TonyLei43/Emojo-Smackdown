@@ -10,7 +10,7 @@
    </head>
    <body>
       <div id="root">
-         <button id="mode-toggle" class="mode-toggle">Normal Mode</button>
+         <button id="mode-toggle" class="mode-toggle" title="Change the difficulty of the game">Normal Mode</button> 
          <audio id="background-music" loop>
             <source src="{{ url_for('static', filename= 'bgm/bgm.mp3') }}" type="audio/wav">
             Your browser does not support the audio element.
@@ -18,30 +18,78 @@
         <button id="audio-control-btn">🔇</button>        
         
          <h1 class="ff-8bit">😤😮‍💨😤😮‍💨Let's play EMOJO SMACKDOWN 😤😮‍💨😤😮‍💨</h1>
-         <p class="instructions">Play this game for funsies</p>
+         <p class="instructions">A contemporary game of RPS </p>
          <div class="game-container">
             <div class="player">
+               <span id="player-emoji" class="move-emoji"></span>
                <h2 class="player-headline"><span class="nick">You</span> <span class="score" id="score1">0</span></h2>
                <div class="player-container">
                   <video id="player-video" class="player-video"  playsinline></video>
-                  <button id="capture-btn">Capture</button> <!-- Capture Button -->
+            
                   <div class="player-hand-container">
                      <div id="player-hand" class="player-hand"></div>
                   </div>
                </div>
             </div>
+            <div class="vs-image-container">
+               <img src="{{ url_for('static', filename='images/vs.png') }}" alt="Versus">
+            </div>
             <div class="player">
+               <span id="cpu-emoji" class="move-emoji"></span>
                <h2 class="player-headline"><span class="nick">CPU</span> <span class="score" id="score2">0</span></h2>
                <div class="robot-container"><img id="robot" class="avatar" src="../static/cat_images/10.jpeg" alt="" width=100% height=100%> <img id="robot-hand" class="robot-hand" alt=""></div>
             </div>
-            <div class="messages"><span id="message"  ></span></div>
          </div>
+         <button id="capture-btn">Capture</button> <!-- Capture Button -->
+         <div class="messages"><span id="message"  ></span></div>
       </div>
       <script src="{{ url_for('static', filename= 'js/weather.js') }}"></script>
       <div id="weather-block">
-
      </div>
+ <!-- Information Button -->
+ <button id="info-btn" class="info-btn">ℹ️</button>
+
+ <!-- Instructions Popup Modal -->
+ <div id="instructions-modal" class="modal">
+     <div class="modal-content">
+         <span class="close-btn">&times;</span>
+         <h2>🌟 Game Instructions: Rock, Paper, Scissors, Lizard, Spock 🌟</h2>
+         <p>Welcome to the exciting game of Rock, Paper, Scissors, Lizard, Spock! Follow these simple steps to play:</p>
      
+         <h3>1. Understand the Moves:</h3>
+         <ul>
+            <div><strong>Rock</strong> crushes Scissors and crushes Lizard.</div>
+            <div><strong>Paper</strong> covers Rock and disproves Spock.</div>
+            <div><strong>Scissors</strong> cuts Paper and decapitates Lizard.</div>
+            <div><strong>Lizard</strong> poisons Spock and eats Paper.</div>
+            <div><strong>Spock</strong> smashes Scissors and vaporizes Rock.</div>
+         </ul>
+     
+         <h3>2. Prepare to Play:</h3>
+         <p>Position yourself in front of your device’s camera. Make sure your hand is visible to the camera.</p>
+     
+         <h3>3. Choose Your Move:</h3>
+         <p>Decide on your move (Rock, Paper, Scissors, Lizard, or Spock). Hold your chosen move in front of the camera:</p>
+         <ul>
+            <div>For <strong>Rock</strong>: Make a fist.<div>
+            <div>For <strong>Paper</strong>: Hold your hand flat.<div>
+            <div>For <strong>Scissors</strong>: Show a peace sign.<div>
+            <div>For <strong>Lizard</strong>: Make a sock-puppet shape with your hand.<div>
+            <div>For <strong>Spock</strong>: Make a V-shape with your fingers (like the Vulcan salute).<div>
+         </ul>
+         <h3>4. Capture Your Move:</h3>
+         <p>When you’re ready, click the “Capture” button. Keep your move steady and clear for the camera.</p>
+         <h3>5. Computer's Turn:</h3>
+         <p>After you capture your move, the computer will randomly generate its move.</p>
+         <h3>6. See the Result:</h3>
+         <p>The game will compare your move with the computer’s move. The result will be displayed on the screen, showing whether you won, lost, or tied.</p>
+         <h3>7. Play Again:</h3>
+         <p>To play another round, simply choose a new move and click “Capture” again.</p>
+         <p>Remember, have fun and may the best move win!</p>
+         <!-- Add more details about your game instructions here -->
+      </div>
+</div>
+<script src="{{ url_for('static', filename= 'js/information.js') }}"></script>
       <script src="{{ url_for('static', filename= 'js/webcam.js') }}"></script><script src="{{ url_for('static', filename= 'js/cat_image.js') }}"></script>
    </body>
 </html>

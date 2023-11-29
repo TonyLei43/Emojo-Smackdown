@@ -18,7 +18,7 @@ def index():
 
 
 # Set up the GestureRecognizer
-model_path = 'model/gesture_recognizer.task'  # Update with the actual path
+model_path = 'model/spock.task'  # Update with the actual path
 base_options = mp_tasks.BaseOptions(model_asset_path=model_path)
 options = vision.GestureRecognizerOptions(base_options=base_options)
 recognizer = vision.GestureRecognizer.create_from_options(options)
@@ -66,6 +66,7 @@ def process_gesture():
 def decide_computer_move_normal():
     return np.random.choice(['Rock', 'Paper', 'Scissors'])
 
+    
 def decide_computer_move_hard(weather):
     # Example logic based on weather conditions
     if weather.get('condition') in ['sunny','clear sky']:
@@ -85,8 +86,7 @@ def determine_winner_normal(player_move, computer_move):
         player_move= "Scissors"
     elif player_move == "Closed_Fist":
         player_move= "Rock"
-    else:
-        player_move=None
+
     outcomes = {
         ('Rock', 'Scissors'): 'Player',
         ('Scissors', 'Rock'): 'Computer',
