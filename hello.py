@@ -82,7 +82,7 @@ def determine_winner_normal(player_move, computer_move):
     if player_move == "Open_Palm":
         player_move= "Paper"
     elif player_move == "Victory":
-        player_move= "Scissor"
+        player_move= "Scissors"
     elif player_move == "Closed_Fist":
         player_move= "Rock"
     else:
