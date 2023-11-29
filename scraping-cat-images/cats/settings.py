@@ -13,7 +13,7 @@ SPIDER_MODULES = ['cats.spiders']
 NEWSPIDER_MODULE = 'cats.spiders'
 
 ITEM_PIPELINES = {'cats.pipelines.CatsPipeline': 1}
-IMAGES_STORE = '/Users/chenc/cats/cats_images_folder'
+IMAGES_STORE = '/cats_images_folder'
 IMAGES_FORMAT = 'JPEG'
 
 
