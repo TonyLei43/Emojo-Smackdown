@@ -15,10 +15,10 @@ def decide_computer_move_hard(previous_input, transition_matrix, state_dict, tot
         chosen_state = np.random.choice(np.array(['Rock', 'Paper', 'Scissors','Lizard', 'Spock']), p=probabilities)
     
     opposite_choices = opposite_dict[chosen_state]
-    predicted_value = random.choice(opposite_choices)
+    predicted_value = np.random.choice(opposite_choices)
     return chosen_state, predicted_value
     
-def determine_winner_normal(player_choice, computer_choice):
+def determine_winner(player_choice, computer_choice):
     rules = {'Rock': ['Scissors', 'Lizard'],
              'Paper': ['Rock', 'Spock'],
              'Scissors': ['Paper', 'Lizard'],

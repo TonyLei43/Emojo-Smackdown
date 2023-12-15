@@ -48,10 +48,10 @@ def process_gesture():
         # Determine the winner
         if mode: #hard mode
             computer_gesture = decide_computer_move_hard()
-            winner = determine_winner_hard(player_gesture, computer_gesture) # Assuming the first gesture is the most confident
+            winner = determine_winner(player_gesture, computer_gesture) # Assuming the first gesture is the most confident
         else:
             computer_gesture= decide_computer_move_normal()
-            winner = determine_winner_normal(player_gesture, computer_gesture)
+            winner = determine_winner(player_gesture, computer_gesture)
     else:
         return jsonify(message='No hand gesture detected')
 
