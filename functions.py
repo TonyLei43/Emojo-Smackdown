@@ -18,7 +18,7 @@ def decide_computer_move_hard(previous_input, transition_matrix, state_dict, tot
     predicted_value = random.choice(opposite_choices)
     return chosen_state, predicted_value
     
-def determine_winner(player_choice, computer_choice):
+def determine_winner_normal(player_choice, computer_choice):
     rules = {'Rock': ['Scissors', 'Lizard'],
              'Paper': ['Rock', 'Spock'],
              'Scissors': ['Paper', 'Lizard'],

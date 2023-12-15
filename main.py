@@ -6,7 +6,6 @@ from mediapipe.tasks import python as mp_tasks
 from mediapipe.tasks.python import vision
 import cv2
 import numpy as np
-import random
 from functions import *
 
 app = Flask(__name__)
@@ -21,15 +20,10 @@ base_options = mp_tasks.BaseOptions(model_asset_path=model_path)
 options = vision.GestureRecognizerOptions(base_options=base_options)
 recognizer = vision.GestureRecognizer.create_from_options(options)
 
-transition_matrix = np.full((5, 5), 1/5)
-state_dict = {'Rock': 0, 'Paper': 1, 'Scissors': 2, 'Lizard': 3, 'Spock': 4}
-total_choices = {'Rock': [0, 0, 0, 0, 0], 'Paper': [0, 0, 0, 0, 0], 'Scissors': [0, 0, 0, 0, 0],
-                     'Lizard': [0, 0, 0, 0, 0], 'Spock': [0, 0, 0, 0, 0]}
-previous_move = None
-
 @app.route('/process_gesture', methods=['POST'])
 def process_gesture():
     data = request.json
+    #weather_data = data.get('weather', {}) #uncomment this if using the weather data (json)
     image_b64 = data['image'].split(',')[1]
     image_bytes = base64.b64decode(image_b64)
     image = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_COLOR)
@@ -52,16 +46,12 @@ def process_gesture():
         player_gesture = top_gesture.category_name #Gesture of the Player
 
         # Determine the winner
-        if mode:
-            computer_gesture = decide_computer_move_hard(previous_move, transition_matrix, state_dict, total_choices)
-            winner = determine_winner(player_gesture, computer_gesture)
+        if mode: #hard mode
+            computer_gesture = decide_computer_move_hard()
+            winner = determine_winner_hard(player_gesture, computer_gesture) # Assuming the first gesture is the most confident
         else:
             computer_gesture= decide_computer_move_normal()
-            winner = determine_winner(player_gesture, computer_gesture)
-            
-        # Updating transition matrix and previous move
-        transition_matrix = update_transition_matrix(previous_move, player_gesture, total_choices, transition_matrix, state_dict)
-        previous_move = player_gesture
+            winner = determine_winner_normal(player_gesture, computer_gesture)
     else:
         return jsonify(message='No hand gesture detected')
 
