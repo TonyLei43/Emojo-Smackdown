@@ -5,83 +5,36 @@ def decide_computer_move_normal():
     return np.random.choice(['Rock', 'Paper', 'Scissors','Spock','Lizard'])
 
 #Determines
-def decide_computer_move_hard():
-    #implement hard mode
-    pass
+def decide_computer_move_hard(previous_input, transition_matrix, state_dict, total_choices):
+    opposite_dict = {'Rock': ['Paper', 'Spock'], 'Paper': ['Scissors', 'Lizard'], 'Scissors': ['Rock', 'Spock'], 
+                    'Lizard': ['Rock', 'Scissors'], 'Spock': ['Lizard','Paper']}
+    if previous_input is None:
+        chosen_state = np.random.choice(np.array(['Rock', 'Paper', 'Scissors','Lizard', 'Spock']))
+    else: 
+        probabilities = transition_matrix[state_dict[previous_input]]
+        chosen_state = np.random.choice(np.array(['Rock', 'Paper', 'Scissors','Lizard', 'Spock']), p=probabilities)
     
-def determine_winner_normal(player_move, computer_move):
-    if player_move == "Open_Palm":
-        player_move= "Paper"
-    elif player_move == "Victory":
-        player_move= "Scissors"
-    elif player_move == "Closed_Fist":
-        player_move= "Rock"
+    opposite_choices = opposite_dict[chosen_state]
+    predicted_value = random.choice(opposite_choices)
+    return chosen_state, predicted_value
+    
+def determine_winner(player_choice, computer_choice):
+    rules = {'Rock': ['Scissors', 'Lizard'],
+             'Paper': ['Rock', 'Spock'],
+             'Scissors': ['Paper', 'Lizard'],
+             'Lizard': ['Spock', 'Paper'],
+             'Spock': ['Rock', 'Scissors']}
 
-    outcomes = {
-        ('Rock', 'Scissors'): 'Player',
-        ('Scissors', 'Rock'): 'Computer',
-        ('Scissors', 'Paper'): 'Player',
-        ('Paper', 'Scissors'): 'Computer',
-        ('Paper', 'Rock'): 'Player',
-        ('Rock', 'Paper'): 'Computer'
-    }
-
-    # Check for tie
-    if player_move == computer_move:
-        return 'Tie'
-    winner = outcomes.get((player_move, computer_move))
-    return winner 
-
-
-def determine_winner_hard(player_move, computer_move, weather):
-    """
-    Determine the winner of a Rock-Paper-Scissors game with an unpredictable twist based on weather.
-
-    :param player_move: Player's move ('Rock', 'Paper', 'Scissors').
-    :param computer_move: Computer's move ('Rock', 'Paper', 'Scissors').
-    :param weather: Dictionary containing weather data.
-    :return: String indicating the winner ('Player', 'Computer', 'Tie').
-    """
-
-    # Basic Rock-Paper-Scissors logic
-    if player_move == "Open_Palm":
-        player_move= "Paper"
-    elif player_move == "Victory":
-        player_move= "Scissor"
-    elif player_move == "Closed_Fist":
-        player_move= "Rock"
+    if player_choice == computer_choice:
+        return "Tie"
+    elif computer_choice in rules[player_choice]:
+        return "Player"
     else:
-        player_move=None
+        return "Computer"
 
-    basic_outcomes = {
-        ('Rock', 'Scissors'): 'Player',
-        ('Scissors', 'Rock'): 'Computer',
-        ('Scissors', 'Paper'): 'Player',
-        ('Paper', 'Scissors'): 'Computer',
-        ('Paper', 'Rock'): 'Player',
-        ('Rock', 'Paper'): 'Computer'
-    }
+def update_transition_matrix(prev_choice, new_choice, total_choices, transition_matrix, state_dict):
+    if prev_choice is not None:
+        total_choices[prev_choice][state_dict[new_choice]] += 1
+        transition_matrix[state_dict[prev_choice]] = total_choices[prev_choice] / np.full(5, sum(total_choices[prev_choice]))
 
-    # Check for a basic outcome
-    if player_move == computer_move:
-        return 'Tie'
-    basic_winner = basic_outcomes.get((player_move, computer_move))
-
-    # Incorporate weather into the decision
-    temperature = weather.get('temperature', 20)  # Default to 20 if no data
-    wind_speed = weather.get('windSpeed', 5)  # Default to 5 if no data
-    condition = weather.get('condition', 'clear').lower()  # Default to 'clear' if no data
-
-    # Complex logic based on weather
-    if condition in ['rainy', 'cloudy'] and random.random() < 0.3:
-        # In rainy or cloudy weather, there's a 30% chance the outcome is reversed
-        return 'Player' if basic_winner == 'Computer' else 'Computer'
-    elif temperature > 30 and wind_speed > 10 and player_move == 'Paper':
-        # Hot and windy conditions make 'Paper' less likely to win
-        return 'Computer'
-    elif condition == 'sunny' and computer_move == 'Scissors':
-        # On sunny days, 'Scissors' are slightly more likely to win
-        return 'Computer' if random.random() < 0.6 else basic_winner
-    else:
-        # In all other cases, use the basic game logic
-        return 'Player'
+    return transition_matrix
