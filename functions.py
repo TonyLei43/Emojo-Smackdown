@@ -16,9 +16,11 @@ def decide_computer_move_hard(previous_input, transition_matrix, state_dict, tot
     
     opposite_choices = opposite_dict[chosen_state]
     predicted_value = np.random.choice(opposite_choices)
-    return chosen_state, predicted_value
+    return  predicted_value
     
 def determine_winner(player_choice, computer_choice):
+    if player_choice == '':
+        return "Tie"
     rules = {'Rock': ['Scissors', 'Lizard'],
              'Paper': ['Rock', 'Spock'],
              'Scissors': ['Paper', 'Lizard'],
@@ -36,5 +38,4 @@ def update_transition_matrix(prev_choice, new_choice, total_choices, transition_
     if prev_choice is not None:
         total_choices[prev_choice][state_dict[new_choice]] += 1
         transition_matrix[state_dict[prev_choice]] = total_choices[prev_choice] / np.full(5, sum(total_choices[prev_choice]))
-
     return transition_matrix

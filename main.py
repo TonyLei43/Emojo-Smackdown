@@ -21,11 +21,14 @@ base_options = mp_tasks.BaseOptions(model_asset_path=model_path)
 options = vision.GestureRecognizerOptions(base_options=base_options)
 recognizer = vision.GestureRecognizer.create_from_options(options)
 
+
+
 transition_matrix = np.full((5, 5), 1/5)
 state_dict = {'Rock': 0, 'Paper': 1, 'Scissors': 2, 'Lizard': 3, 'Spock': 4}
 total_choices = {'Rock': [0, 0, 0, 0, 0], 'Paper': [0, 0, 0, 0, 0], 'Scissors': [0, 0, 0, 0, 0],
-                     'Lizard': [0, 0, 0, 0, 0], 'Spock': [0, 0, 0, 0, 0]}
+                    'Lizard': [0, 0, 0, 0, 0], 'Spock': [0, 0, 0, 0, 0]}
 previous_move = None
+
 
 @app.route('/process_gesture', methods=['POST'])
 def process_gesture():
@@ -46,11 +49,17 @@ def process_gesture():
     # Check if Normal or Hard mode (Hard: True, Normal: False)
     mode = data.get('mode', {})
 
+    global transition_matrix
+    global state_dict
+    global total_choices
+    global previous_move
+
     #If the model detects a gesture 
     if results.gestures:
         top_gesture = results.gestures[0][0] #Takes the top one with highest probability
         player_gesture = top_gesture.category_name #Gesture of the Player
-
+        if player_gesture=='':
+            return jsonify(message='Try Again')
         # Determine the winner
         if mode:
             computer_gesture = decide_computer_move_hard(previous_move, transition_matrix, state_dict, total_choices)
@@ -61,6 +70,7 @@ def process_gesture():
             
         # Updating transition matrix and previous move
         transition_matrix = update_transition_matrix(previous_move, player_gesture, total_choices, transition_matrix, state_dict)
+        print(transition_matrix)
         previous_move = player_gesture
     else:
         return jsonify(message='No hand gesture detected')
