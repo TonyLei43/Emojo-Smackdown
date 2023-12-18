@@ -34,7 +34,7 @@ Remember, have fun and may the best move win!
 ## How to Run
 
 ### Prerequisites
-- Python 3.x
+- Python 3.11.5
 
 ### Installation
 1. Clone the repository:
